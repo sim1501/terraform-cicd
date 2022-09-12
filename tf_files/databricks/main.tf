@@ -1,8 +1,4 @@
-variable "databricks_connection_profile" {
-  description = "The name of the Databricks connection profile to use."
-  type = string
-  default = "cust-success"
-}
+
 terraform {
   required_providers {
     aws = {
@@ -19,7 +15,7 @@ terraform {
 provider "databricks" {
   # profile = var.databricks_connection_profile
   account_id = ""
-  host = "https://cust-success.cloud.databricks.com"
+  host = "https://adb-8596220602934265.5.azuredatabricks.net"
   token = var.token
   }
 
@@ -35,9 +31,9 @@ resource "databricks_group" "group" {
 }
 
 
-resource "databricks_group_instance_profile" "all" {
-  group_id            = databricks_group.group.id
-  instance_profile_id = "arn:aws:iam::265388553628:instance-profile/cedric-databricks-3-role"
-}
+# resource "databricks_group_instance_profile" "all" {
+#   group_id            = databricks_group.group.id
+#   instance_profile_id = "arn:aws:iam::265388553628:instance-profile/cedric-databricks-3-role"
+# }
 
 
