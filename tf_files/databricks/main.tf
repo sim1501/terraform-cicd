@@ -19,6 +19,8 @@ terraform {
 provider "databricks" {
   profile = var.databricks_connection_profile
   account_id = ""
+  host = "https://cust-success.cloud.databricks.com"
+  token = "dapi199f4ac1c01e4e6520365954a895a6a1"
 }
 
 
@@ -28,7 +30,7 @@ resource "databricks_group" "group" {
     allow_instance_pool_create = true
     databricks_sql_access      = true
     display_name               = "testing_simran"
-    workspace_access           = true
+    workspace_access           = true`
    force		= true
 }
 
