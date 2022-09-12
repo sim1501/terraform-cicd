@@ -30,12 +30,8 @@ resource "databricks_group" "group" {
     allow_instance_pool_create = true
     databricks_sql_access      = true
     display_name               = "testing_simran"
-<<<<<<< HEAD
     workspace_access           = true
-=======
-    workspace_access           = true`
->>>>>>> 554a2f1f813c714bd6baa92d947e4a6911f78b02
-   force		= true
+    force		               = true
 }
 
 
