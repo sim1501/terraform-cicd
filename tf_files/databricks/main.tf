@@ -3,11 +3,6 @@ variable "databricks_connection_profile" {
   type = string
   default = "cust-success"
 }
-# variable token{
-#     description = "The token to use for the connection."
-#     type = string
-#     default= "dapi199f4ac1c01e4e6520365954a895a6a1"
-# }
 terraform {
   required_providers {
     aws = {
@@ -35,7 +30,11 @@ resource "databricks_group" "group" {
     allow_instance_pool_create = true
     databricks_sql_access      = true
     display_name               = "testing_simran"
+<<<<<<< HEAD
     workspace_access           = true
+=======
+    workspace_access           = true`
+>>>>>>> 554a2f1f813c714bd6baa92d947e4a6911f78b02
    force		= true
 }
 
