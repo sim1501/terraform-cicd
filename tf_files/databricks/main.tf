@@ -36,4 +36,20 @@ resource "databricks_group" "group" {
 #   instance_profile_id = "arn:aws:iam::265388553628:instance-profile/cedric-databricks-3-role"
 # }
 
+resource "databricks_sql_query" "q1" {
+  data_source_id = "676432a6-c8bd-4bab-9e3b-7e8e51085f64"
+  name           = "My Query Name"
+  query          = "SELECT * from simran_test.customers"
 
+}
+
+resource "databricks_sql_visualization" "q1v1" {
+  query_id    = databricks_sql_query.q1.id
+  type        = "table"
+  name        = "My Table"
+  description = "Some Description"
+
+  // The options encoded in this field are passed verbatim to the SQLA API.
+  options = jsonencode(file("/Users/simran.arora/terraformrepo/terraform-cicd/tf_files/databricks/rpt_viz.json"))
+  
+}
