@@ -50,81 +50,81 @@ resource "databricks_sql_visualization" "q1v1" {
   description = "Some Description"
 
   // The options encoded in this field are passed verbatim to the SQLA API.
-  options = jsonencode({
+  options = jsonencode(file("/Users/simran.arora/terraformrepo/terraform-cicd/tf_files/databricks/rpt_viz.json"))
 
-    "alignYAxesAtZero" : false,
-    "coefficient" : 1,
-    "columnConfigurationMap" : {
-      "series" : {
-        "column" : "AccountId",
-        "id" : "column_7915eaf48"
-      },
-      "x" : {
-        "column" : "vertical",
-        "id" : "column_7915eaf47"
-      },
-      "y" : [
-        {
-          "column" : "dollar_ammount",
-          "id" : "column_7915eaf49",
-          "transform" : "SUM"
-        }
-      ]
-    },
-    "dateTimeFormat" : "YYYY-MM-DD HH:mm",
-    "direction" : {
-      "type" : "counterclockwise"
-    },
-    "error_y" : {
-      "type" : "data",
-      "visible" : true
-    },
-    "globalSeriesType" : "pie",
-    "legend" : {
-      "traceorder" : "normal"
-    },
-    "missingValuesAsZero" : true,
-    "numberFormat" : "0,0[.]00000",
-    "percentFormat" : "0[.]00%",
-    "series" : {
-      "error_y" : {
-        "type" : "data",
-        "visible" : true
-      },
-      "stacking" : "stack"
-    },
-    "seriesOptions" : {
-      "column_7915eaf49" : {
-        "name" : "dollar_ammount",
-        "type" : "pie",
-        "yAxis" : 0
-      }
-    },
-    "showDataLabels" : true,
-    "sizemode" : "diameter",
-    "sortX" : true,
-    "sortY" : true,
-    "swappedAxes" : false,
-    "textFormat" : "",
-    "useAggregationsUi" : true,
-    "valuesOptions" : {},
-    "version" : 2,
-    "xAxis" : {
-      "labels" : {
-        "enabled" : true
-      },
-      "type" : "-"
-    },
-    "yAxis" : [
-      {
-        "type" : "-"
-      },
-      {
-        "opposite" : true,
-        "type" : "-"
-      }
-    ]
+  #   "alignYAxesAtZero" : false,
+  #   "coefficient" : 1,
+  #   "columnConfigurationMap" : {
+  #     "series" : {
+  #       "column" : "AccountId",
+  #       "id" : "column_7915eaf48"
+  #     },
+  #     "x" : {
+  #       "column" : "vertical",
+  #       "id" : "column_7915eaf47"
+  #     },
+  #     "y" : [
+  #       {
+  #         "column" : "dollar_ammount",
+  #         "id" : "column_7915eaf49",
+  #         "transform" : "SUM"
+  #       }
+  #     ]
+  #   },
+  #   "dateTimeFormat" : "YYYY-MM-DD HH:mm",
+  #   "direction" : {
+  #     "type" : "counterclockwise"
+  #   },
+  #   "error_y" : {
+  #     "type" : "data",
+  #     "visible" : true
+  #   },
+  #   "globalSeriesType" : "pie",
+  #   "legend" : {
+  #     "traceorder" : "normal"
+  #   },
+  #   "missingValuesAsZero" : true,
+  #   "numberFormat" : "0,0[.]00000",
+  #   "percentFormat" : "0[.]00%",
+  #   "series" : {
+  #     "error_y" : {
+  #       "type" : "data",
+  #       "visible" : true
+  #     },
+  #     "stacking" : "stack"
+  #   },
+  #   "seriesOptions" : {
+  #     "column_7915eaf49" : {
+  #       "name" : "dollar_ammount",
+  #       "type" : "pie",
+  #       "yAxis" : 0
+  #     }
+  #   },
+  #   "showDataLabels" : true,
+  #   "sizemode" : "diameter",
+  #   "sortX" : true,
+  #   "sortY" : true,
+  #   "swappedAxes" : false,
+  #   "textFormat" : "",
+  #   "useAggregationsUi" : true,
+  #   "valuesOptions" : {},
+  #   "version" : 2,
+  #   "xAxis" : {
+  #     "labels" : {
+  #       "enabled" : true
+  #     },
+  #     "type" : "-"
+  #   },
+  #   "yAxis" : [
+  #     {
+  #       "type" : "-"
+  #     },
+  #     {
+  #       "opposite" : true,
+  #       "type" : "-"
+  #     }
+  #   ]
 
-  })
+  # })
 
 }
