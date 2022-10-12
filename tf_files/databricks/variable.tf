@@ -23,13 +23,23 @@ variable "service_principal_access_token_lifetime" {
 }
 variable "listOfPythonPackages" {
   type = list(string)
-
-  default = ["pandas", "databricks-cli"]
-
+  
+  default = [ "pandas","databricks-cli" ]
+  
 }
 variable "listOfMavenPackages" {
   type = list(string)
+  
+  default = [ "com.google.guava:guava:23.0" , "com.google.protobuf:protobuf-java-util:3.17.3" ]
+}
 
-  default = ["com.google.guava:guava:23.0"]
-
+variable "factset_api_credentials" {
+  type = object({
+   name = string,
+   class = string
+  })
+  default = {
+    class = "five"
+    name = "simmi"
+  }
 }
