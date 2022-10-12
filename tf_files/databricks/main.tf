@@ -6,6 +6,7 @@ terraform {
       version = "~> 3.27"
     }
 
+
     databricks = {
       source = "databricks/databricks"
     }
@@ -13,38 +14,71 @@ terraform {
 }
 
 provider "databricks" {
-  # profile = var.databricks_connection_profile
-  account_id = ""
-  host       = "https://adb-8596220602934265.5.azuredatabricks.net"
-  token      = var.token
+  profile = var.databricks_connection_profile
+  # account_id = ""
+  # host       = "https://adb-8596220602934265.5.azuredatabricks.net"
+  # token      = var.token
 }
 
 
 
-/*resource "databricks_group" "group" {
-    allow_cluster_create       = true
-    allow_instance_pool_create = true
-    databricks_sql_access      = true
-    display_name               = "testing_simran"
-    workspace_access           = true
-    force		               = true
-}*/
+resource "databricks_group" "group" {
+  allow_cluster_create       = true
+  allow_instance_pool_create = true
+  databricks_sql_access      = true
+  display_name               = "testing_simran"
+  workspace_access           = true
+  force                      = true
+}
+
+# resource "databricks_git_credential" "ado" {
+#   git_username          = "sim1501"
+#   git_provider          = "GitHub"
+#   personal_access_token = "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"
+# }
+data "databricks_node_type" "smallest" {
+  local_disk = true
+}
+
+data "databricks_spark_version" "latest_lts" {
+  long_term_support = true
+}
+
+# Adding Library in cluster
+resource "databricks_cluster" "shared_autoscaling" {
+  cluster_name            = "Shared Autoscaling"
+  spark_version           = data.databricks_spark_version.latest_lts.id
+  node_type_id            = data.databricks_node_type.smallest.id
+  autotermination_minutes = 20
+  autoscale {
+    min_workers = 1
+    max_workers = 2
+  }
+  dynamic "library" {
+    for_each = toset(var.listOfMavenPackages)
+    content {
+      maven {
+        coordinates = library.value
+      }
+    }
+  }
+}
+
 
 
 # resource "databricks_group_instance_profile" "all" {
 #   group_id            = databricks_group.group.id
-#   instance_profile_id = "arn:aws:iam::265388553628:instance-profile/cedric-databricks-3-role"
+#  // instance_profile_id = "arn:aws:iam::<Account_No>:instance-profile/<Instance_Profile_Name>"
 # }
 
-resource "databricks_sql_query" "q1" {
-  data_source_id = "676432a6-c8bd-4bab-9e3b-7e8e51085f64"
-  name           = "My Working Project"
-  query          = "SELECT * from simran_test.customers"
-  
+# resource "databricks_sql_query" "q1" {
+#   data_source_id = "676432a6-c8bd-4bab-9e3b-7e8e51085f64"
+#   name           = "My Working Project"
+#   query          = "SELECT * from simran_test.customers"
 
-}
 
-resource "databricks_sql_visualization" "q1v1" {
+# }
+/*resource "databricks_sql_visualization" "q1v1" {
   query_id    = databricks_sql_query.q1.id
   type        = "table"
   name        = "My Table"
@@ -129,3 +163,11 @@ resource "databricks_sql_visualization" "q1v1" {
   }
   )
 }
+*/
+
+# resource "databricks_workspace_conf" "this" {
+
+#   custom_config = {
+#     "enableIpAccessLists" : true
+#   }
+# }
