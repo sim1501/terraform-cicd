@@ -20,8 +20,23 @@ provider "databricks" {
   # token      = var.token
 }
 
+#Adding Secret Scope
+resource "databricks_secret_scope" "this" {
+  name = "terraform-demo-scope"
+}
 
+#Adding Secret
+resource "databricks_secret" "publishing_api" {
+  key          = "publishing_api"
+  string_value = jsonencode(var.factset_api_credentials)
+  scope        = databricks_secret_scope.this.name
+}
+output "namespace" {
+  value = databricks_secret.publishing_api.string_value
+  sensitive = true
+}
 
+#Adding Group
 resource "databricks_group" "group" {
   allow_cluster_create       = true
   allow_instance_pool_create = true
@@ -31,38 +46,38 @@ resource "databricks_group" "group" {
   force                      = true
 }
 
-# resource "databricks_git_credential" "ado" {
+/*resource "databricks_git_credential" "ado" {
 #   git_username          = "sim1501"
 #   git_provider          = "GitHub"
 #   personal_access_token = "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"
 # }
 data "databricks_node_type" "smallest" {
   local_disk = true
-}
+}*/
 
 data "databricks_spark_version" "latest_lts" {
   long_term_support = true
 }
 
 # Adding Library in cluster
-resource "databricks_cluster" "shared_autoscaling" {
-  cluster_name            = "Shared Autoscaling"
-  spark_version           = data.databricks_spark_version.latest_lts.id
-  node_type_id            = data.databricks_node_type.smallest.id
-  autotermination_minutes = 20
-  autoscale {
-    min_workers = 1
-    max_workers = 2
-  }
-  dynamic "library" {
-    for_each = toset(var.listOfMavenPackages)
-    content {
-      maven {
-        coordinates = library.value
-      }
-    }
-  }
-}
+# resource "databricks_cluster" "shared_autoscaling" {
+#   cluster_name            = "Shared Autoscaling"
+#   spark_version           = data.databricks_spark_version.latest_lts.id
+#   node_type_id            = data.databricks_node_type.smallest.id
+#   autotermination_minutes = 20
+#   autoscale {
+#     min_workers = 1
+#     max_workers = 2
+#   }
+#   dynamic "library" {
+#     for_each = toset(var.listOfMavenPackages)
+#     content {
+#       maven {
+#         coordinates = library.value
+#       }
+#     }
+#   }
+# }
 
 
 
