@@ -44,6 +44,7 @@ data "databricks_spark_version" "latest_lts" {
   long_term_support = true
 }
 
+# Adding Library in cluster
 resource "databricks_cluster" "shared_autoscaling" {
   cluster_name            = "Shared Autoscaling"
   spark_version           = data.databricks_spark_version.latest_lts.id
