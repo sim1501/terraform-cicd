@@ -1,0 +1,5 @@
+tf_files/databricks/.terraform
+tf_files/databricks/tflint-ruleset-aws
+tf_files/databricks/.tflint.hcl
+tf_files/.DS_Store
+.DS_Store
